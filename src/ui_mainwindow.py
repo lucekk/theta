@@ -19,7 +19,6 @@ from PySide6.QtWidgets import (QApplication, QLCDNumber, QLabel, QMainWindow,
     QMenuBar, QPushButton, QRadioButton, QCheckBox ,QSizePolicy,
     QSpinBox, QStatusBar, QVBoxLayout, QWidget, QFileDialog, QSlider)
 from superqt import QRangeSlider
-from lib.QtRangeSliderMain.qtrangeslider import QRangeSlider, QLabeledRangeSlider
 
 from matplotlib import text
 

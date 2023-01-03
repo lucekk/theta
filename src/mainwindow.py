@@ -19,6 +19,9 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self._connect_buttons()
+
+    def _connect_buttons(self):
         self.ui.uoload_btn.clicked.connect(self.showImage)
         self.ui.start_btn.clicked.connect(self._start_clicked)
         self.ui.save_btn.clicked.connect(self._save_image)
@@ -90,3 +93,4 @@ class MainWindow(QMainWindow):
     def _reset(self):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self._connect_buttons()
