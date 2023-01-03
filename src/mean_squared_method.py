@@ -4,6 +4,7 @@ class MeanSquaredMethod:
 
     def __init__(self, x_points, y_points):
         self._last_squares_fit(x_points, y_points)
+        self._mse(x_points, y_points)
 
     def _dot(self, v, w):
         return sum(vi * wi for vi, wi in zip(v,w))
@@ -42,16 +43,23 @@ class MeanSquaredMethod:
         self._beta = self._correlation(x, y) * self._standard_deviation(y) / self._standard_deviation(x)
         self._alpha = self._mean(y) - self._beta * self._mean(x)
         
-    def get_alpha_and_beta_to_straight_equation(self):
-        return self._alpha, self._beta
-    '''
-    def predict(alpha, beta, xi):
+    def _predict(self, alpha, beta, xi):
         return beta *xi + alpha
 
-    def error(alpha, beta, xi, yi):
-        return yi - predict(alpha, beta, xi)
-
-    def sum_of_squad_errors(alpha, beta, x, y):
-        return sum(error(alpha, beta, xi, yi) ** 2
+    def _error(self, alpha, beta, xi, yi):
+        return yi - self._predict(alpha, beta, xi)
+    
+    def _sum_of_squad_errors(self, alpha, beta, x, y):
+        return sum(self._error(alpha, beta, xi, yi) ** 2
                 for xi, yi in zip(x, y))
-    '''
+    
+    def _mse(self, x_points, y_points):
+        self._mse = self._sum_of_squad_errors(self._alpha, self._beta, x_points, y_points)/len(x_points)
+
+    def get_alpha_and_beta_to_straight_equation(self):
+        return self._alpha, self._beta
+
+    def get_mse(self):
+        return self._mse
+    
+    

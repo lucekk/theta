@@ -23,6 +23,6 @@ class ShowAutomaticResults:
         cv2.drawContours(self.__image_copy, [self.__contours] , 0, (0, 0, 255), 2)
         cv2.line(self.__image_copy, (self.__lp[0] - 3, int(self.__a_horizontal * (self.__lp[0]-3) + self.__b_horizontal)), (self.__left_point_to_draw[0] , self.__left_point_to_draw[1]), (255,255,0), 2)
         cv2.line(self.__image_copy, (self.__rp[0] + 3, int(self.__a_horizontal * (self.__rp[0]-3) + self.__b_horizontal)), (self.__right_point_to_draw[0] , self.__right_point_to_draw[1]), (255,255,0), 2)
-        cv2.putText(self.__image_copy, f"L:{round(self.__angle[0])} P:{round(self.__angle[1])}", (10,80), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 2, cv2.LINE_AA)
+        cv2.putText(self.__image_copy, f"L:{self.__angle[0]} P:{self.__angle[1]}", (10,80), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), 2, cv2.LINE_AA)
         cv2.drawContours(self.__image_copy, [self.__x_arr], 0, (255, 255, 0), 2)
         return self._fixColor(self.__image_copy), self.__angle

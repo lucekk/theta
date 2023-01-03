@@ -39,15 +39,15 @@ class MainWindow(QMainWindow):
         self.ui.save_btn.setEnabled(True)
         self.ui.start_btn.setEnabled(True)
         self.ui.reset_btn.setEnabled(True)
-        self.file_path, _ = QFileDialog.getOpenFileName(self, 'Wybierz zdjęcie', 'C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\images',)
+        self.file_path, _ = QFileDialog.getOpenFileName(self, 'Wybierz zdjęcie', r'C:\Users\lucek\OneDrive\Pulpit\THETA\images')
         self.ui.displayImageFile(self.file_path)
 
     def _set_angle_value(self, angle, method_isboxhecked_dto):
         if method_isboxhecked_dto.geometric == True:
             self.ui.lcdNumber_3.display(angle[0])
         elif method_isboxhecked_dto.statistic == True:
-            self.ui.lcdNumber.display(angle[0])
-            self.ui.lcdNumber_2.display(angle[1])
+            self.ui.lcdNumber.display((angle[0].split('('))[0])
+            self.ui.lcdNumber_2.display((angle[1].split('('))[0])
 
     def _start_clicked(self):
         image_setup_dto = ImageSetupDto(255, 30, 225, 30)
@@ -87,8 +87,8 @@ class MainWindow(QMainWindow):
         self.ui.displayImageFile(self.qimage)
 
     def _save_image(self):
-        self.file_to_save_path, _ = QFileDialog.getSaveFileName(self, 'Zapisz pomiar', 'C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\theta_prototype\\results', '*.png')
-        self.qimage.save(f'{self.file_to_save_path}.png')
+        self.file_to_save_path, _ = QFileDialog.getSaveFileName(self, 'Zapisz pomiar', r'C:\Users\lucek\OneDrive\Pulpit\THETA\theta_prototype\results', '*.png')
+        self.qimage.save(f'{self.file_to_save_path}')
 
     def _reset(self):
         self.ui = Ui_MainWindow()

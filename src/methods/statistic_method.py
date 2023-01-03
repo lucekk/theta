@@ -46,9 +46,13 @@ class StatisticMethod(Method):
         return left_list, right_list
 
     def _calculate_straight_equation_compounds(self, left_list, right_list):
-        alpha_left, beta_left = MeanSquaredMethod(left_list[0], left_list[1]).get_alpha_and_beta_to_straight_equation()
-        alpha_right, beta_right = MeanSquaredMethod(right_list[0], right_list[1]).get_alpha_and_beta_to_straight_equation()
-        return alpha_left, beta_left, alpha_right, beta_right
+        left_side_compounds = MeanSquaredMethod(left_list[0], left_list[1])
+        right_side_compounds = MeanSquaredMethod(right_list[0], right_list[1])
+        alpha_left, beta_left = left_side_compounds.get_alpha_and_beta_to_straight_equation()
+        alpha_right, beta_right = right_side_compounds.get_alpha_and_beta_to_straight_equation()
+        left_side_mse = left_side_compounds.get_mse()
+        right_side_mse = right_side_compounds.get_mse()
+        return alpha_left, beta_left, alpha_right, beta_right, left_side_mse, right_side_mse
 
     def _calclate_bottom_straight_equation_compounds(self):
         alpha_bottom = (self.__lp[1]-self.__rp[1])/(self.__lp[0]-self.__rp[0])
@@ -89,13 +93,15 @@ class StatisticMethod(Method):
     def _caluclations(self):
         left_side_points, right_side_points = self._contour_points_to_local_staight()
         left_list, right_list = self._points_to_find_local_staight(left_side_points, right_side_points)
-        alpha_left, beta_left, alpha_right, beta_right = self._calculate_straight_equation_compounds(left_list, right_list)
+        alpha_left, beta_left, alpha_right, beta_right, left_side_mse, right_side_mse = self._calculate_straight_equation_compounds(left_list, right_list)
         alpha_bottom, beta_bottom = self._calclate_bottom_straight_equation_compounds()
         left_point, right_point, botton_left_point, botton_rigth_point = self._calculate_points_to_angle(alpha_left, beta_left, alpha_right, beta_right, alpha_bottom, beta_bottom)
         left_angle = self._check_angle(ThetaCalulcator.calculate_angle(botton_left_point, self.__lp, left_point))
         right_angle = self._check_angle(ThetaCalulcator.calculate_angle(right_point, self.__rp, botton_rigth_point))
         left_point_to_draw, right_point_to_draw = self._get_data_to_draw(left_angle, right_angle)
-        return left_angle, right_angle, left_point_to_draw, right_point_to_draw
+        left_angle_with_error = str(round(left_angle, 2)) + f'({round(left_side_mse, 2)})'
+        right_angle_with_error = str(round(right_angle, 2)) + f'({round(right_side_mse, 2)})'
+        return left_angle_with_error, right_angle_with_error, left_point_to_draw, right_point_to_draw
 
     def get_method_data(self):
         return StatisticMethodDto(

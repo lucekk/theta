@@ -52,7 +52,7 @@ class GeometricMethod(Method):
         radius = self._get_lines_length()
         self.__cenetr_of_circle = self._get_cenetr_of_circle(radius)
         primal_angle = ThetaCalulcator.calculate_angle(self.__rp, self.__cenetr_of_circle, self.__lp)
-        self.final_angle = self._get_final_angle(primal_angle)
+        self.final_angle = round(self._get_final_angle(primal_angle), 2)
         left_point_to_draw_rotaed, right_point_to_draw_rotaed = self._get_data_to_draw()
         return left_point_to_draw_rotaed, right_point_to_draw_rotaed
 
