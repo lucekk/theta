@@ -1,7 +1,7 @@
 import math
 from src.theta_calculator import ThetaCalulcator
 from src.dto.geometric_method_dto import GeometricMethodDto
-from src.method_factory import Method
+from src.methods.method_factory import Method
 
 class GeometricMethod(Method):
 

@@ -18,9 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QLCDNumber, QLabel, QMainWindow,
     QMenuBar, QPushButton, QRadioButton, QCheckBox ,QSizePolicy,
     QSpinBox, QStatusBar, QVBoxLayout, QWidget, QFileDialog, QSlider)
-from superqt import QRangeSlider
-
-from matplotlib import text
 
 
 class Ui_MainWindow(object):
@@ -35,9 +32,9 @@ class Ui_MainWindow(object):
         self.pix_image.setObjectName(u"pix_image")
         self.pix_image.setGeometry(QRect(210, 10, 950, 540))
         self.pix_image.setPixmap(QPixmap(u"C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\theta_prototype\\images\\start_logo5.png"))
-        self.uoload_btn = QPushButton(self.centralwidget)
-        self.uoload_btn.setObjectName(u"uoload_btn")
-        self.uoload_btn.setGeometry(QRect(30, 30, 80, 24))
+        self.upoload_btn = QPushButton(self.centralwidget)
+        self.upoload_btn.setObjectName(u"upoload_btn")
+        self.upoload_btn.setGeometry(QRect(30, 30, 80, 24))
         self.circle_radio_btn = QRadioButton(self.centralwidget)
         self.circle_radio_btn.setObjectName(u"circle_radio_btn")
         self.circle_radio_btn.setGeometry(QRect(30, 120, 89, 20))
@@ -206,7 +203,7 @@ class Ui_MainWindow(object):
         self.circlewidget.raise_()
         self.lsmwidget.raise_()
         self.pix_image.raise_()
-        self.uoload_btn.raise_()
+        self.upoload_btn.raise_()
         self.circle_radio_btn.raise_()
         self.lsm_radio_btn.raise_()
         self.start_btn.raise_()
@@ -251,7 +248,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"THETA", None))
         MainWindow.setWindowIcon(QIcon(u"C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\theta_prototype\\images\\logo2.png"))
         self.pix_image.setText("")
-        self.uoload_btn.setText(QCoreApplication.translate("MainWindow", u"Za\u0142aduj plik", None))
+        self.upoload_btn.setText(QCoreApplication.translate("MainWindow", u"Za\u0142aduj plik", None))
         self.circle_radio_btn.setText(QCoreApplication.translate("MainWindow", u"Geo.", None))
         self.lsm_radio_btn.setText(QCoreApplication.translate("MainWindow", u"Stat.", None))
         self.start_btn.setText(QCoreApplication.translate("MainWindow", u"Start", None))

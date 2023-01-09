@@ -1,5 +1,5 @@
 from src.methods.geometric_method import GeometricMethod
-from src.methods.statistic_method import StatisticMethod
+from src.methods.statistic_method.statistic_method import StatisticMethod
 
 class AutomaticCalculations:
 

@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         self._connect_buttons()
 
     def _connect_buttons(self):
-        self.ui.uoload_btn.clicked.connect(self.showImage)
+        self.ui.upoload_btn.clicked.connect(self.showImage)
         self.ui.start_btn.clicked.connect(self._start_clicked)
         self.ui.save_btn.clicked.connect(self._save_image)
         self.ui.reset_btn.clicked.connect(self._reset)
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         self.ui.save_btn.setEnabled(True)
         self.ui.start_btn.setEnabled(True)
         self.ui.reset_btn.setEnabled(True)
-        self.file_path, _ = QFileDialog.getOpenFileName(self, 'Wybierz zdjęcie', r'C:\Users\lucek\OneDrive\Pulpit\THETA\images')
+        self.file_path, _ = QFileDialog.getOpenFileName(self, 'Wybierz zdjęcie')
         self.ui.displayImageFile(self.file_path)
 
     def _set_angle_value(self, angle, method_isboxhecked_dto):
@@ -87,7 +87,7 @@ class MainWindow(QMainWindow):
         self.ui.displayImageFile(self.qimage)
 
     def _save_image(self):
-        self.file_to_save_path, _ = QFileDialog.getSaveFileName(self, 'Zapisz pomiar', r'C:\Users\lucek\OneDrive\Pulpit\THETA\theta_prototype\results', '*.png')
+        self.file_to_save_path, _ = QFileDialog.getSaveFileName(self, 'Zapisz pomiar', '*.png')
         self.qimage.save(f'{self.file_to_save_path}')
 
     def _reset(self):

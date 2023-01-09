@@ -1,7 +1,7 @@
 import math
-from src.method_factory import Method
+from src.methods.method_factory import Method
 from src.theta_calculator import ThetaCalulcator
-from src.mean_squared_method import MeanSquaredMethod
+from src.methods.statistic_method.mean_squared_method import MeanSquaredMethod
 from src.enum.calculate_point_to_draw_side_enum import CalculatePointToDrawSideEnum
 from src.dto.statistic_method_dto import StatisticMethodDto
 
