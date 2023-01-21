@@ -35,12 +35,12 @@ class MainWindow(QMainWindow):
         self.ui.manualRadioButton.clicked.connect(self._manual_mode_on)
 
     def showImage(self):
-        self.ui.manualRadioButton.setEnabled(True)
-        self.ui.save_btn.setEnabled(True)
-        self.ui.start_btn.setEnabled(True)
-        self.ui.reset_btn.setEnabled(True)
         self.file_path, _ = QFileDialog.getOpenFileName(self, 'Wybierz zdjęcie')
         self.ui.displayImageFile(self.file_path)
+        self.ui.set_on_widget_components()
+        if len(self.file_path) == 0:
+            self._reset()
+        self.ui.reset_counter_displays()
 
     def _set_angle_value(self, angle, method_isboxhecked_dto):
         if method_isboxhecked_dto.geometric == True:
@@ -63,6 +63,7 @@ class MainWindow(QMainWindow):
         self.qimage = QImage(image_to_display, image_to_display.shape[1], image_to_display.shape[0], QImage.Format_RGB888)
         self._set_angle_value(angle_to_display, method_isboxhecked_dto)
         self.ui.displayImageFile(self.qimage)
+        self.ui.manualRadioButton.setEnabled(True)
 
 
     def _manual_mode_on(self):
@@ -88,8 +89,18 @@ class MainWindow(QMainWindow):
 
     def _save_image(self):
         self.file_to_save_path, _ = QFileDialog.getSaveFileName(self, 'Zapisz pomiar', '*.png')
-        self.qimage.save(f'{self.file_to_save_path}')
-
+        if self.file_to_save_path.split('.').pop() == 'png':
+            try:
+                self.qimage.save(f'{self.file_to_save_path}')
+            except Exception:
+                error_dialog = QErrorMessage(self.ui.centralwidget)
+                error_dialog.showMessage('Wykonaj pomiar przed zapisem')
+        elif len(self.file_to_save_path) == 0:
+            pass
+        else:
+            error_dialog = QErrorMessage(self.ui.centralwidget)
+            error_dialog.showMessage('Nieprawddłowa forma zapisu. Prawidłowa forma to:\nnazwa.png')
+    
     def _reset(self):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)

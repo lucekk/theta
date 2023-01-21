@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
         self.pix_image = QLabel(self.centralwidget)
         self.pix_image.setObjectName(u"pix_image")
         self.pix_image.setGeometry(QRect(210, 10, 950, 540))
-        self.pix_image.setPixmap(QPixmap(u"C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\theta_prototype\\images\\start_logo5.png"))
+        self.pix_image.setPixmap(QPixmap(u"images\\start_logo5.png"))
         self.upoload_btn = QPushButton(self.centralwidget)
         self.upoload_btn.setObjectName(u"upoload_btn")
         self.upoload_btn.setGeometry(QRect(30, 30, 80, 24))
@@ -63,6 +63,7 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget = QWidget(self.lsmwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
         self.verticalLayoutWidget.setGeometry(QRect(20, 20, 93, 201))
+        self.verticalLayoutWidget.setEnabled(False)
         self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -105,6 +106,7 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget_2 = QWidget(self.circlewidget)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
         self.verticalLayoutWidget_2.setGeometry(QRect(20, 20, 79, 52))
+        self.verticalLayoutWidget_2.setEnabled(False)
         self.verticalLayout_2 = QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -228,25 +230,15 @@ class Ui_MainWindow(object):
         self.lsm_radio_btn.toggled.connect(self.lsmwidget.setVisible)
         self.spinBox.valueChanged.connect(MainWindow.update)
         self.manualRadioButton.toggled.connect(self.manualwidget.setVisible)
-        self.manualRadioButton.toggled.connect(lambda:self.btnState(self.manualRadioButton))
-        self.manualRadioButton.toggled.connect(self.verticalSlider1.setVisible)
-        self.manualRadioButton.toggled.connect(self.verticalSlider2.setVisible)
-        self.manualRadioButton.toggled.connect(self.bottomSlider1.setVisible)
-        self.manualRadioButton.toggled.connect(self.bottomSlider2.setVisible)
-        self.manualRadioButton.toggled.connect(self.angleSlider1.setVisible)
-        self.manualRadioButton.toggled.connect(self.angleSlider2.setVisible)
-        self.manualRadioButton.toggled.connect(self.label_6.setVisible)
-        self.manualRadioButton.toggled.connect(self.label_7.setVisible)
-        self.manualRadioButton.toggled.connect(self.leftAngleLcdNumber.setVisible)
-        self.manualRadioButton.toggled.connect(self.rightAngleLcdNumber.setVisible)
-
+        self.manualRadioButton.toggled.connect(lambda:self.btnStateOn(self.manualRadioButton))
+        self.manualRadioButton.toggled.connect(lambda:self.btnStateOff(self.manualRadioButton))
         MainWindow.toolButtonStyleChanged.connect(self.lcdNumber.update)
         
         QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"THETA", None))
-        MainWindow.setWindowIcon(QIcon(u"C:\\Users\\lucek\\OneDrive\\Pulpit\\THETA\\theta_prototype\\images\\logo2.png"))
+        MainWindow.setWindowIcon(QIcon(u"images\\logo2.png"))
         self.pix_image.setText("")
         self.upoload_btn.setText(QCoreApplication.translate("MainWindow", u"Za\u0142aduj plik", None))
         self.circle_radio_btn.setText(QCoreApplication.translate("MainWindow", u"Geo.", None))
@@ -268,7 +260,7 @@ class Ui_MainWindow(object):
         self.pix_image.setPixmap(QPixmap(file_name))
 
 
-    def btnState(self, radio_button):
+    def btnStateOn(self, radio_button):
         if radio_button.isChecked() == False:
             self.verticalSlider1.setVisible(False)
             self.verticalSlider2.setVisible(False)
@@ -280,6 +272,40 @@ class Ui_MainWindow(object):
             self.label_7.setVisible(False)
             self.leftAngleLcdNumber.setVisible(False)
             self.rightAngleLcdNumber.setVisible(False)
+            self.start_btn.setEnabled(True)
+            self.verticalLayoutWidget.setEnabled(True)
+            self.verticalLayoutWidget_2.setEnabled(True)
 
-    #def valueSlider (self, display, slider, x):
-    #    display.display(slider.value()[x])
+    def btnStateOff(self, radio_button):
+        if radio_button.isChecked() == True:
+            self.verticalSlider1.setVisible(True)
+            self.verticalSlider2.setVisible(True)
+            self.bottomSlider1.setVisible(True)
+            self.bottomSlider2.setVisible(True)
+            self.angleSlider1.setVisible(True)
+            self.angleSlider2.setVisible(True)
+            self.label_6.setVisible(True)
+            self.label_7.setVisible(True)
+            self.leftAngleLcdNumber.setVisible(True)
+            self.rightAngleLcdNumber.setVisible(True)
+            self.start_btn.setEnabled(False)
+            self.verticalLayoutWidget.setEnabled(False)
+            self.verticalLayoutWidget_2.setEnabled(False)
+
+    def set_on_widget_components(self):
+        self.manualRadioButton.setEnabled(True)
+        self.save_btn.setEnabled(True)
+        self.start_btn.setEnabled(True)
+        self.reset_btn.setEnabled(True)
+        self.manualRadioButton.setChecked(False)
+        self.manualRadioButton.setEnabled(False)
+        self.start_btn.setEnabled(True)
+        self.verticalLayoutWidget.setEnabled(True)
+        self.verticalLayoutWidget_2.setEnabled(True)
+    
+    def reset_counter_displays(self):
+        self.lcdNumber.display(0)
+        self.lcdNumber_2.display(0)
+        self.lcdNumber_3.display(0)
+        self.leftAngleLcdNumber.display(90)
+        self.rightAngleLcdNumber.display(90)
